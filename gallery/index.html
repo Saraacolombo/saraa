@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery Shop - SARAA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #8b5a3c;
+      --secondary: #d4a574;
+      --accent: #e8c4a0;
+      --dark: #2c2420;
+      --light: #f8f5f0;
+      --muted: #6b6b6b;
+      --logo: #322217;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background: var(--light);
+    }
+
+    /* NAVIGATION */
+    .navbar {
+      position: sticky;
+      top: 0;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 1000;
+      padding: 1rem 0;
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      list-style: none;
+    }
+
+    .logo-container {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .logo {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--logo), var(--logo));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: white;
+      box-shadow: 0 4px 15px rgba(139, 90, 60, 0.3);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      text-decoration: none;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.3s;
+      position: relative;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--primary);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .cart-icon-wrapper {
+      position: relative;
+      cursor: pointer;
+      font-size: 1.5rem;
+      transition: transform 0.2s;
+    }
+
+    .cart-icon-wrapper:hover {
+      transform: scale(1.1);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--dark);
+    }
+
+    /* HERO SECTION */
+    .shop-hero {
+      background: linear-gradient(135deg, rgba(139, 90, 60, 0.9), rgba(212, 165, 116, 0.8));
+      color: white;
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+
+    .shop-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .shop-hero p {
+      font-size: 1.2rem;
+      font-weight: 300;
+    }
+
+    /* FILTER TABS */
+    .filter-tabs {
+      background: transparent;
+      padding: 2rem;
+      position: sticky;
+      top: 100px;
+      z-index: 100;
+    }
+
+    .filter-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 0.8rem 2rem;
+      border: 2px solid var(--secondary);
+      background: white;
+      color: var(--dark);
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 1rem;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    /* SECTIONS */
+    .shop-section {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      color: var(--primary);
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: var(--secondary);
+      margin-top: 0.5rem;
+    }
+
+    /* PRODUCT GRID */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 280px;
+      background: linear-gradient(135deg, var(--accent), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: var(--primary);
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .product-info {
+      padding: 1.5rem;
+    }
+
+    .product-category {
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-name {
+      font-weight: 600;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+    }
+
+    .product-artist {
+      color: var(--primary);
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+      font-style: italic;
+    }
+
+    .product-desc {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid #eee;
+    }
+
+    .product-price {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 1.4rem;
+    }
+
+    .add-to-cart-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.7rem 1.8rem;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+      font-size: 0.95rem;
+    }
+
+    .add-to-cart-btn:hover {
+      background: var(--dark);
+      transform: scale(1.05);
+    }
+
+    /* CART MODAL */
+    .cart-modal {
+      position: fixed;
+      top: 0;
+      right: -450px;
+      width: 450px;
+      height: 100vh;
+      background: white;
+      box-shadow: -5px 0 20px rgba(0,0,0,0.2);
+      z-index: 2000;
+      transition: right 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cart-modal.active {
+      right: 0;
+    }
+
+    .cart-header {
+      padding: 1.5rem;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cart-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .close-cart {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem;
+    }
+
+    .empty-cart {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--muted);
+    }
+
+    .cart-item {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem;
+      border-bottom: 1px solid #eee;
+      align-items: center;
+    }
+
+    .cart-item-image {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--accent), var(--secondary));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .cart-item-info {
+      flex: 1;
+    }
+
+    .cart-item-name {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      font-size: 0.95rem;
+    }
+
+    .cart-item-category {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .cart-item-price {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .remove-btn {
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: background 0.3s;
+    }
+
+    .remove-btn:hover {
+      background: #c0392b;
+    }
+
+    .cart-footer {
+      padding: 1.5rem;
+      border-top: 2px solid #eee;
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .checkout-button {
+      width: 100%;
+      padding: 1rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .checkout-button:hover {
+      background: var(--dark);
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 3rem 2rem 1rem;
+      margin-top: 4rem;
+    }
+
+    .footer-grid {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-grid strong {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--secondary);
+    }
+
+    .footer-grid a {
+      color: #bbb;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-grid a:hover {
+      color: white;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .nav-container {
+        padding: 0 1rem;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .logo-container {
+        position: static;
+        transform: none;
+      }
+
+      .logo {
+        width: 60px;
+        height: 60px;
+        font-size: 1.4rem;
+      }
+
+      .shop-hero h1 {
+        font-size: 2rem;
+      }
+
+      .filter-tabs {
+        top: 80px;
+      }
+
+      .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .cart-modal {
+        width: 100%;
+        right: -100%;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <header class="navbar" role="banner">
+    <div class="nav-container">
+      <ul class="nav-links" id="nav-links">
+        <li><a href="saraa-website.html#class" class="nav-link">Class</a></li>
+        <li><a href="saraa-website.html#gallery" class="nav-link">Gallery</a></li>
+      </ul>
+
+      <div class="logo-container">
+        <a href="saraa-website.html" class="logo">
+          <img src="lolo_saraa.png" alt="SARAA Logo" style="width: 100%; height: 100%; object-fit: contain; border-radius: 50%;">
+        </a>
+      </div>
+
+      <ul class="nav-links" id="nav-links-right">
+        <li><a href="saraa-website.html#menu" class="nav-link">Café</a></li>
+        <li><a href="saraa-website.html#booking" class="nav-link">Booking</a></li>
+        <li><a href="saraa-website.html#about" class="nav-link">About</a></li>
+        <li>
+          <div class="cart-icon-wrapper" id="cart-icon">
+            🛒
+            <span class="cart-count" id="cart-count">0</span>
+          </div>
+        </li>
+      </ul>
+
+      <button class="mobile-menu-btn" id="mobile-menu-btn">☰</button>
+    </div>
+  </header>
+
+  <!-- SHOP HERO -->
+  <section class="shop-hero">
+    <h1>Gallery Shop</h1>
+    <p>Discover unique artworks and quality art supplies</p>
+  </section>
+
+  <!-- FILTER TABS -->
+  <div class="filter-tabs">
+    <div class="filter-container">
+      <button class="filter-btn active" onclick="filterCategory('all')">All Items</button>
+      <button class="filter-btn" onclick="filterCategory('artist')">Artist Paintings</button>
+      <button class="filter-btn" onclick="filterCategory('kids')">Kids Art</button>
+      <button class="filter-btn" onclick="filterCategory('supplies')">Art Supplies</button>
+    </div>
+  </div>
+
+  <!-- ARTIST PAINTINGS -->
+  <section id="artist-section" class="shop-section">
+    <h2 class="section-title">Artist Paintings</h2>
+    <div class="product-grid">
+      
+      <div class="product-card" data-category="artist">
+        <div class="product-image">
+          <img src="img.png" alt="Abstract Harmony" style="width: 100%; height: 100%; object-fit: cover;">
+          <span class="product-badge">Original</span>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Artist Painting</div>
+          <div class="product-name">Abstract Harmony</div>
+          <div class="product-artist">By Sarasisis Gunarathna</div>
+          <div class="product-desc">A vibrant abstract piece exploring the balance between chaos and order through bold colors and dynamic brushwork.</div>
+          <div class="product-footer">
+            <div class="product-price">Rs. 25,000</div>
+            <button class="add-to-cart-btn" onclick="addToCart('Abstract Harmony', 25000, 'AP001', 'artist', '🖼️')">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="artist">
+        <div class="product-image">
+          <img src="img.png" alt="Tropical Sunset" style="width: 100%; height: 100%; object-fit: cover;">
+          <span class="product-badge">Original</span>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Artist Painting</div>
+          <div class="product-name">Tropical Sunset</div>
+          <div class="product-artist">By Local Artist</div>
+          <div class="product-desc">Capture the serene beauty of a Sri Lankan sunset with warm tones and palm silhouettes in watercolor.</div>
+          <div class="product-footer">
+            <div class="product-price">Rs. 18,500</div>
+            <button class="add-to-cart-btn" onclick="addToCart('Tropical Sunset', 18500, 'AP002', 'artist', '🎨')">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="artist">
+        <div class="product-image">
+          <img src="img.png" alt="Urban Dreams" style="width: 100%; height: 100%; object-fit: cover;">
+          <span class="product-badge">Original</span>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Artist Painting</div>
+          <div class="product-name">Urban Dreams</div>
+          <div class="product-artist">By Featured Artist</div>
+          <div class="product-desc">Contemporary cityscape capturing the energy and movement of urban life in mixed media.</div>
+          <div class="product-footer">
+            <div class="product-price">Rs. 32,000</div>
+            <button class="add-to-cart-btn" onclick="addToCart('Urban Dreams', 32000, 'AP003', 'artist', '🌅')">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="artist">
+        <div class="product-image">
+          <img src="img.png" alt="Botanical Study" style="width: 100%; height: 100%; object-fit: cover;">
+          <span class="product-badge">Original</span>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Artist Painting</div>
+          <div class="product-name">Botanical Study</div>
+          <div class="product-artist">By Sarasija Gunarathna</div>
+          <div class="product-desc">Detailed botanical illustration celebrating tropical flora with intricate detail and vibrant colors.</div>
+          <div class="product-footer">
+            <div class="product-price">Rs. 22,000</div>
+            <button class="add-to-cart-btn" onclick="addToCart('Botanical Study', 22000, 'AP004', 'artist', '🌺')">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- KIDS ART -->
+  <section id="kids-section" class="shop-section" style="background: white;">
+    <h2 class="section-title">Kids Art</h2>
+    <div class="product-grid">
+      
+      <div class="product-card" data-category="kids">
+        <div class="product-image">
+          <img src="img.png" alt="Rainbow Garden" style="width: 100%; height: 100%; object-fit: cover;">
+          <span class="product-badge">Student Art</span>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Kids Art</div>
+          <div class="product-name">Rainbow Garden</div>
+          <div class="product-artist">By Young Artist (Age 8)</div>
+          <div class="product-desc">A joyful garden scene bursting with colorful flowers and butterflies, created with passion and imagination.</div>
+          <div class="product-footer">
+            <div class="product-price">Rs. 3,500</div>
+            <button class="add-to-cart-btn" onclick="addToCart('Rainbow Garden', 3500, 'KA001', 'kids', '🎨')">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="kids">
+        <div class="product-image">
+          <img src="img.png" alt="Elephant Family" style="width: 100%; height: 100%; object-fit: cover;">
+          <span class="product-badge">Student Art</span>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Kids Art</div>
+          <div class="product-name">Elephant Family</div>
+          <div class="product-artist">By Young Artist (Age 10)</div>
+          <div class="product-desc">Adorable elephant family portrait showcasing Sri Lankan wildlife with charming innocence.</div>
+          <div class="product-footer">
+            <div class="product-price">Rs. 4,000</div>
+            <button class="add-to-cart-btn" onclick="addToCart('Elephant Family', 4000, 'KA002', 'kids', '🐘')">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="kids">
+        <div class="product-image">
+          <img src="img.png" alt="My Happy Place" style="width: 100%; height: 100%; object-fit: cover;">
+          <span class="product-badge">Student Art</span>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Kids Art</div>
+          <div class="product-name">My Happy Place</div>
+          <div class="product-artist">By Young Artist (Age 7)</div>
+          <div class="product-desc">Bright and cheerful abstract expressing pure joy through bold colors and playful shapes.</div>
+          <div class="product-footer">
+            <div class="product-price">Rs. 3,000</div>
+            <button class="add-to-cart-btn" onclick="addToCart('My Happy Place', 3000, 'KA003', 'kids', '🌈')">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-category="kids">
+        <div class="product-image">
+          <img src="img.png" alt="Beach Day" style="width: 100%; height: 100%; object-fit: cover;">
+          <span class="product-badge">Student Art</span>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Kids Art</div>
+          <div class="product-name">Beach Day</div>
+          <div class="product-artist">By Young Artist (Age 9)</div>
+          <div class="product-desc">Sunny beach scene with palm trees and waves, capturing childhood memories of seaside adventures.</div>
+          <div class="product-footer">
+            <div class="product-price">Rs. 3,800</div>
+            <button class="add-to-cart-btn" onclick="addToCart('Beach Day', 3800, 'KA004', 'kids', '🏖️')">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+<section id="supplies-section" class="shop-section">
+  <h2 class="section-title">Art Supplies</h2>
+  <div class="product-grid">
+    
+    <div class="product-card" data-category="supplies">
+      <div class="product-image">
+        <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=800&auto=format&fit=crop" alt="Professional Brush Set" style="width: 100%; height: 100%; object-fit: cover;">
+        <span class="product-badge">Professional</span>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Art Supplies</div>
+        <div class="product-name">Professional Brush Set</div>
+        <div class="product-artist">12-Piece Collection</div>
+        <div class="product-desc">High-quality synthetic and natural hair brushes for all painting techniques including oil, acrylic, and watercolor.</div>
+        <div class="product-footer">
+          <div class="product-price">Rs. 5,500</div>
+          <button class="add-to-cart-btn" onclick="addToCart('Professional Brush Set', 5500, 'AS001', 'supplies', '🖌️')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-category="supplies">
+      <div class="product-image">
+        <img src="https://images.unsplash.com/photo-1541119638723-c51cbe2262aa?q=80&w=800&auto=format&fit=crop" alt="Acrylic Paint Set" style="width: 100%; height: 100%; object-fit: cover;">
+        <span class="product-badge">Premium</span>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Art Supplies</div>
+        <div class="product-name">Acrylic Paint Set</div>
+        <div class="product-artist">24 Colors</div>
+        <div class="product-desc">Vibrant acrylic paint collection with excellent coverage and color mixing capabilities.</div>
+        <div class="product-footer">
+          <div class="product-price">Rs. 4,200</div>
+          <button class="add-to-cart-btn" onclick="addToCart('Acrylic Paint Set', 4200, 'AS002', 'supplies', '🎨')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-category="supplies">
+      <div class="product-image">
+        <img src="https://images.unsplash.com/photo-1586075010643-26818fdfc486?q=80&w=800&auto=format&fit=crop" alt="Watercolor Sketchbook" style="width: 100%; height: 100%; object-fit: cover;">
+        <span class="product-badge">Quality</span>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Art Supplies</div>
+        <div class="product-name">Watercolor Sketchbook</div>
+        <div class="product-artist">A4 Size, 300gsm</div>
+        <div class="product-desc">Premium cold-pressed watercolor paper perfect for wet media, 40 sheets of archival quality paper.</div>
+        <div class="product-footer">
+          <div class="product-price">Rs. 2,800</div>
+          <button class="add-to-cart-btn" onclick="addToCart('Watercolor Sketchbook', 2800, 'AS003', 'supplies', '📔')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-category="supplies">
+      <div class="product-image">
+        <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=800&auto=format&fit=crop" alt="Drawing Pencil Set" style="width: 100%; height: 100%; object-fit: cover;">
+        <span class="product-badge">Professional</span>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Art Supplies</div>
+        <div class="product-name">Drawing Pencil Set</div>
+        <div class="product-artist">18 Pieces (6H-8B)</div>
+        <div class="product-desc">Complete range of graphite pencils from hard to soft, including charcoal and blending tools.</div>
+        <div class="product-footer">
+          <div class="product-price">Rs. 3,200</div>
+          <button class="add-to-cart-btn" onclick="addToCart('Drawing Pencil Set', 3200, 'AS004', 'supplies', '✏️')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-category="supplies">
+      <div class="product-image">
+        <img src="https://images.unsplash.com/photo-1615486511484-92e172cc4fe0?q=80&w=800&auto=format&fit=crop" alt="Oil Pastel Set" style="width: 100%; height: 100%; object-fit: cover;">
+        <span class="product-badge">Vibrant</span>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Art Supplies</div>
+        <div class="product-name">Oil Pastel Set</div>
+        <div class="product-artist">36 Colors</div>
+        <div class="product-desc">Soft, blendable oil pastels with rich pigmentation for vibrant artwork on various surfaces.</div>
+        <div class="product-footer">
+          <div class="product-price">Rs. 2,500</div>
+          <button class="add-to-cart-btn" onclick="addToCart('Oil Pastel Set', 2500, 'AS005', 'supplies', '🖍️')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-category="supplies">
+      <div class="product-image">
+        <img src="https://images.unsplash.com/photo-1520032484190-e5ef81d87978?q=80&w=800&auto=format&fit=crop" alt="Beginner's Art Kit" style="width: 100%; height: 100%; object-fit: cover;">
+        <span class="product-badge">Complete</span>
+      </div>
+      <div class="product-info">
+        <div class="product-category">Art Supplies</div>
+        <div class="product-name">Beginner's Art Kit</div>
+        <div class="product-artist">All-in-One Starter Pack</div>
+        <div class="product-desc">Everything you need to start your art journey: paints, brushes, canvas, and instruction guide.</div>
+        <div class="product-footer">
+          <div class="product-price">Rs. 6,800</div>
+          <button class="add-to-cart-btn" onclick="addToCart('Beginner\'s Art Kit', 6800, 'AS006', 'supplies', '🎭')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+  <!-- CART MODAL -->
+  <div class="cart-modal" id="cart-modal">
+    <div class="cart-header">
+      <div class="cart-title">Your Cart</div>
+      <button class="close-cart" id="close-cart">✕</button>
+    </div>
+    <div class="cart-items" id="cart-items">
+      <div class="empty-cart">Your cart is empty</div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span>Total:</span>
+        <span id="cart-total">Rs. 0</span>
+      </div>
+      <button class="checkout-button">Proceed to Checkout</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div style="font-size: 1.5rem; font-family: 'Playfair Display', serif; color: var(--secondary); margin-bottom: 0.5rem;">SARAA</div>
+        <p style="color: #bbb; font-size: 0.9rem;">Art, Community & Creativity</p>
+      </div>
+
+      <div>
+        <strong>Shop</strong>
+        <div style="color: #bbb; font-size: 0.9rem;">
+          <a href="#artist-section">Artist Paintings</a><br>
+          <a href="#kids-section">Kids Art</a><br>
+          <a href="#supplies-section">Art Supplies</a>
+        </div>
+      </div>
+
+      <div>
+        <strong>Company</strong>
+        <div style="color: #bbb; font-size: 0.9rem;">
+          <a href="saraa-website.html#about">About</a><br>
+          <a href="saraa-website.html#class">Classes</a><br>
+          <a href="saraa-website.html#booking">Booking</a>
+        </div>
+      </div>
+
+      <div>
+        <strong>Contact</strong>
+        <div style="color: #bbb; font-size: 0.9rem;">
+          +94 71 7888 118<br>
+          <a href="https://www.instagram.com" target="_blank">Instagram</a><br>
+          <a href="https://www.facebook.com" target="_blank">Facebook</a>
+        </div>
+      </div>
+    </div>
+    <div style="text-align: center; padding-top: 2rem; border-top: 1px solid #444; color: #888; font-size: 0.9rem;">
+      © 2026 SARAA Gallery Shop. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    // Cart functionality
+    let cart = JSON.parse(localStorage.getItem('saraaCart')) || [];
+    const cartModal = document.getElementById('cart-modal');
+    const cartIcon = document.getElementById('cart-icon');
+    const closeCart = document.getElementById('close-cart');
+    const cartCount = document.getElementById('cart-count');
+    const cartItems = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+
+    // Update cart on page load
+    updateCart();
+
+    function addToCart(name, price, code, category, emoji) {
+      const existingItem = cart.find(item => item.code === code);
+      
+      if (existingItem) {
+        existingItem.quantity++;
+      } else {
+        cart.push({ name, price, code, category, emoji, quantity: 1 });
+      }
+      
+      localStorage.setItem('saraaCart', JSON.stringify(cart));
+      updateCart();
+      
+      // Show brief feedback
+      const button = event.target;
+      const originalText = button.textContent;
+      button.textContent = 'Added! ✓';
+      button.style.background = '#27ae60';
+      setTimeout(() => {
+        button.textContent = originalText;
+        button.style.background = '';
+      }, 1500);
+    }
+
+    function updateCart() {
+      cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+      
+      if (cart.length === 0) {
+        cartItems.innerHTML = '<div class="empty-cart">Your cart is empty</div>';
+        cartTotal.textContent = 'Rs. 0';
+        return;
+      }
+
+      const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      cartTotal.textContent = `Rs. ${total.toLocaleString()}`;
+
+      cartItems.innerHTML = cart.map(item => `
+        <div class="cart-item">
+          <div class="cart-item-image">${item.emoji}</div>
+          <div class="cart-item-info">
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-category">${item.category}</div>
+            <div class="cart-item-price">Rs. ${item.price.toLocaleString()} × ${item.quantity}</div>
+          </div>
+          <button class="remove-btn" onclick="removeFromCart('${item.code}')">Remove</button>
+        </div>
+      `).join('');
+    }
+
+    function removeFromCart(code) {
+      cart = cart.filter(item => item.code !== code);
+      localStorage.setItem('saraaCart', JSON.stringify(cart));
+      updateCart();
+    }
+
+    cartIcon.addEventListener('click', () => {
+      cartModal.classList.add('active');
+    });
+
+    closeCart.addEventListener('click', () => {
+      cartModal.classList.remove('active');
+    });
+
+    // Filter functionality
+    function filterCategory(category) {
+      const allCards = document.querySelectorAll('.product-card');
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      
+      // Update active button
+      filterBtns.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      // Filter cards
+      allCards.forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Scroll to first visible section
+      if (category !== 'all') {
+        const section = document.getElementById(`${category}-section`);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    }
+
+    // Mobile menu
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const navLinks = document.getElementById('nav-links');
+    const navLinksRight = document.getElementById('nav-links-right');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      navLinksRight.classList.toggle('active');
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          navLinks.classList.remove('active');
+          navLinksRight.classList.remove('active');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
